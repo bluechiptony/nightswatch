@@ -13,6 +13,8 @@
 		8C8B4F5025C5E7DD004BD07D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C8B4F4F25C5E7DD004BD07D /* Assets.xcassets */; };
 		8C8B4F5325C5E7DD004BD07D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C8B4F5225C5E7DD004BD07D /* Preview Assets.xcassets */; };
 		8C8B4F5625C5E7DD004BD07D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8B4F5425C5E7DD004BD07D /* LaunchScreen.storyboard */; };
+		8C8B4F5E25C8BD4A004BD07D /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8B4F5D25C8BD4A004BD07D /* DetailsView.swift */; };
+		8C8B4F6025C8C2D1004BD07D /*  Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8B4F5F25C8C2D1004BD07D /*  Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		8C8B4F5225C5E7DD004BD07D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8C8B4F5525C5E7DD004BD07D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C8B4F5725C5E7DD004BD07D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C8B4F5D25C8BD4A004BD07D /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		8C8B4F5F25C8C2D1004BD07D /*  Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " Task.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				8C8B4F5425C5E7DD004BD07D /* LaunchScreen.storyboard */,
 				8C8B4F5725C5E7DD004BD07D /* Info.plist */,
 				8C8B4F5125C5E7DD004BD07D /* Preview Content */,
+				8C8B4F5D25C8BD4A004BD07D /* DetailsView.swift */,
+				8C8B4F5F25C8C2D1004BD07D /*  Task.swift */,
 			);
 			path = Nightswatch;
 			sourceTree = "<group>";
@@ -147,7 +153,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C8B4F4A25C5E7D9004BD07D /* AppDelegate.swift in Sources */,
+				8C8B4F5E25C8BD4A004BD07D /* DetailsView.swift in Sources */,
 				8C8B4F4C25C5E7D9004BD07D /* SceneDelegate.swift in Sources */,
+				8C8B4F6025C8C2D1004BD07D /*  Task.swift in Sources */,
 				8C8B4F4E25C5E7D9004BD07D /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
