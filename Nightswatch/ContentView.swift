@@ -8,57 +8,63 @@
 
 import SwiftUI
 
-let nightlyTasks = [
-    "Check all windows",
-    "Check all doors",
-    "Check that the safe is locked",
-    "Check the mailbox",
-    "Inspect security cameras",
-    "Clear ice from sidewalk",
-    "Document \"stange and unusual\" occurences"
-]
-
-let weeklyTasks = [
-    "Check inside all vacant rooms",
-    "Walk the perimeter of property"
-]
 
 
-let monthlyTasks = [
-    "Test security alarm",
-    "Test motion detectors",
-    "Test smoke alarms"
-]
+
+
+
 
 
 struct NightsWatchContentView: View {
+    
+    @ObservedObject var nightsWatchTasks:NightsWatchTasks
+    
     
     
     var body: some View {
         NavigationView {
             List{
                 Section(header:TaskSectionHeader(symbolSystemName: "moon.stars", headerName: "NIGHTLY TASKS")){
-                   ForEach(nightlyTasks, id:\.self, content: {
-                       tasName in
-                        NavigationLink(tasName, destination: DetailsView(taskName: tasName))
-                       
+                    
+                    let taskIndices = nightsWatchTasks.nightlyTasks.indices;
+                    let tasks = nightsWatchTasks.nightlyTasks
+                    let taskIndexPairs = Array(zip(tasks, taskIndices))
+                    
+                    ForEach(taskIndexPairs,  id:\.0.id,content: {
+                       task, taskIndex in
+                        let dollarNightswatchTasksWrapper = $nightsWatchTasks;
+                        let tasksBindings = dollarNightswatchTasksWrapper.nightlyTasks
+                        let theTaskBinding = tasksBindings[taskIndex]
+                        NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
                    })
                }
                Section(header:TaskSectionHeader(symbolSystemName: "moon", headerName: "WEEKLY TASKS")){
-                   ForEach(weeklyTasks, id:\.self, content: {
-                       tasName in
-                    NavigationLink(tasName, destination: DetailsView(taskName: tasName))
+                    let taskIndices = nightsWatchTasks.weeklyTasks.indices;
+                    let tasks = nightsWatchTasks.weeklyTasks
+                    let taskIndexPairs = Array(zip(tasks, taskIndices))
+                    
+                    ForEach(taskIndexPairs,  id:\.0.id,content: {
+                       task, taskIndex in
+                        let dollarNightswatchTasksWrapper = $nightsWatchTasks;
+                        let tasksBindings = dollarNightswatchTasksWrapper.weeklyTasks
+                        let theTaskBinding = tasksBindings[taskIndex]
+                        NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
                    })
                }
                Section(header:TaskSectionHeader(symbolSystemName: "calendar", headerName: "MONTHLY TASKS")){
-                   ForEach(monthlyTasks, id:\.self, content: {
-                       
-                       tasName in
-                       NavigationLink(tasName, destination: DetailsView(taskName: tasName))
-                   })
+                let taskIndices = nightsWatchTasks.monthlyTasks.indices;
+                let tasks = nightsWatchTasks.monthlyTasks
+                let taskIndexPairs = Array(zip(tasks, taskIndices))
+                
+                ForEach(taskIndexPairs,  id:\.0.id,content: {
+                   task, taskIndex in
+                    let dollarNightswatchTasksWrapper = $nightsWatchTasks;
+                    let tasksBindings = dollarNightswatchTasksWrapper.monthlyTasks
+                    let theTaskBinding = tasksBindings[taskIndex]
+                    NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+               })
                }
-               
-                }.listStyle(GroupedListStyle()).navigationBarTitle("Home")
+            }.listStyle(GroupedListStyle()).navigationBarTitle("Home")
         }
     }
 }
@@ -66,6 +72,7 @@ struct NightsWatchContentView: View {
 struct TaskSectionHeader: View {
     let symbolSystemName:String
     let headerName:String
+    
     var body: some View {
         HStack{
             Image(systemName: symbolSystemName)
@@ -75,10 +82,32 @@ struct TaskSectionHeader: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    let nwt = NightsWatchTasks()
     static var previews: some View {
-        NightsWatchContentView()
+        NightsWatchContentView(nightsWatchTasks: NightsWatchTasks())
     }
 }
 
 
 
+
+struct TaskRow: View {
+    let task:Task
+    var body: some View {
+        VStack {
+            if task.isComplete {
+                
+                HStack {
+                    Image(systemName: "checkmark.square")
+                    Text(task.name).foregroundColor(.gray).strikethrough()
+                }
+                
+            } else {
+                HStack {
+                    Image(systemName: "square")
+                    Text(task.name)
+                }
+            }
+        }
+    }
+}
