@@ -18,7 +18,7 @@ import SwiftUI
 struct NightsWatchContentView: View {
     
     @ObservedObject var nightsWatchTasks:NightsWatchTasks
-    
+    @State private var focusModeOn = false;
     
     
     var body: some View {
@@ -35,7 +35,10 @@ struct NightsWatchContentView: View {
                         let dollarNightswatchTasksWrapper = $nightsWatchTasks;
                         let tasksBindings = dollarNightswatchTasksWrapper.nightlyTasks
                         let theTaskBinding = tasksBindings[taskIndex]
-                        NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+                        if focusModeOn == false || (focusModeOn && !task.isComplete){
+                            NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+                        }
+
                    })
                }
                Section(header:TaskSectionHeader(symbolSystemName: "moon", headerName: "WEEKLY TASKS")){
@@ -48,7 +51,9 @@ struct NightsWatchContentView: View {
                         let dollarNightswatchTasksWrapper = $nightsWatchTasks;
                         let tasksBindings = dollarNightswatchTasksWrapper.weeklyTasks
                         let theTaskBinding = tasksBindings[taskIndex]
-                        NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+                        if focusModeOn == false || (focusModeOn && !task.isComplete){
+                            NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+                        }
                    })
                }
                Section(header:TaskSectionHeader(symbolSystemName: "calendar", headerName: "MONTHLY TASKS")){
@@ -61,10 +66,18 @@ struct NightsWatchContentView: View {
                     let dollarNightswatchTasksWrapper = $nightsWatchTasks;
                     let tasksBindings = dollarNightswatchTasksWrapper.monthlyTasks
                     let theTaskBinding = tasksBindings[taskIndex]
-                    NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+                    if focusModeOn == false || (focusModeOn && !task.isComplete){
+                        NavigationLink(destination: DetailsView(task: theTaskBinding), label: {TaskRow(task: task)})
+                    }
                })
                }
-            }.listStyle(GroupedListStyle()).navigationBarTitle("Home")
+            }.listStyle(GroupedListStyle()).navigationBarTitle("Home").toolbar(content: {
+                ToolbarItem(placement: .bottomBar, content: {
+                    Toggle(isOn:$focusModeOn, label:{
+                        Text("Focus mode")
+                    })
+                })
+            })
         }
     }
 }
