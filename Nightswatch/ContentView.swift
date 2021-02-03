@@ -18,7 +18,8 @@ import SwiftUI
 struct NightsWatchContentView: View {
     
     @ObservedObject var nightsWatchTasks:NightsWatchTasks
-    @State private var focusModeOn = false;
+    @State private var focusModeOn = false
+    @State private var showResetAlert = false
     
     
     var body: some View {
@@ -84,9 +85,14 @@ struct NightsWatchContentView: View {
                     })
                }
             }.listStyle(GroupedListStyle()).navigationBarTitle("Home").toolbar(content: {
-                
-                ToolbarItem(placement:.navigationBarTrailing){
+               
+                ToolbarItem(placement:.navigationBarLeading){
                     EditButton()
+                }
+                ToolbarItem(placement:.navigationBarTrailing){
+                    Button("Reset"){
+                        showResetAlert = true
+                    }
                 }
                 
                 ToolbarItem(placement: .bottomBar, content: {
@@ -95,7 +101,14 @@ struct NightsWatchContentView: View {
                     })
                 })
             })
-        }
+        }.alert(isPresented: $showResetAlert, content: {
+            Alert(title: Text("Reset List"), message: Text("Are you sure you want to reset?"), primaryButton: .cancel(), secondaryButton: .destructive( Text("Yes please"), action: {
+                let refreshedTasks = NightsWatchTasks()
+                self.nightsWatchTasks.nightlyTasks = refreshedTasks.nightlyTasks
+                self.nightsWatchTasks.weeklyTasks = refreshedTasks.weeklyTasks
+                self.nightsWatchTasks.monthlyTasks = refreshedTasks.monthlyTasks
+            }))
+        })
     }
 }
 
